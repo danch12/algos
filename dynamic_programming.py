@@ -146,7 +146,8 @@ def lengthOfLIS_better(nums):
                     break
     return len(arr)
 
-def findNumberOfLIS( nums) -> int:
+
+def findNumberOfLIS(nums) -> int:
     length = [1] * len(nums)
     count = [1] * len(nums)
 
@@ -160,6 +161,7 @@ def findNumberOfLIS( nums) -> int:
                     count[i] += count[j]
     top_len = max(length)
     return sum([count[i] for i in range(len(count)) if length[i] == top_len])
+
 
 def longestPalindrome(s: str) -> str:
     dp = [[0] * len(s) for _ in range(len(s))]
@@ -272,8 +274,8 @@ def countSubstrings(s: str) -> int:
                     count += 1
     return count
 
-def canPartition(nums):
 
+def canPartition(nums):
     total = sum(nums)
     if total % 2 != 0:
         return False
@@ -287,3 +289,29 @@ def canPartition(nums):
             dp[curr] = dp[curr] or dp[curr - num]
 
     return dp[total // 2]
+
+
+def canPartitionKSubsets(nums, k):
+    total = sum(nums)
+
+    sub_amount = total / k
+
+    buckets = [0] * k
+
+    nums.sort(reverse=True)
+
+    length = len(nums)
+
+    def walk(i):
+        if i == length:
+            return len(set(buckets)) == 1
+        for j in range(k):
+            buckets[j] += nums[i]
+            if buckets[j] <= sub_amount and walk(i + 1):
+                return True
+            buckets[j] -= nums[i]
+            if buckets[j] == 0:
+                break
+        return False
+
+    return walk(0)
