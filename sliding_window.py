@@ -101,6 +101,7 @@ def characterReplacement(s: str, k: int) -> int:
     return longest
 
 
+# Given a string s, find the length of the longest substring without repeating characters.
 def lengthOfLongestSubstring(self, s: str) -> int:
     max_length = 0
     letters = {}
